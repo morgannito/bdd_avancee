@@ -1,7 +1,7 @@
 import sqlite3
 import timeit
 
-databaseName = "villesDeFranceEnUneSeuleTable.db"
+databaseName = "tableopti.db"
 
 
 # se connecter à la base de données
@@ -64,7 +64,7 @@ def normaliseBase():
         # verifie si la region existe
         c.execute('SELECT * FROM regions WHERE code = ?', (region_code,))
         region = c.fetchone()
-        region_id = region[0]
+        region_id = region[0] if region else 777
         if region == None:
             c.execute('INSERT INTO regions (code, name, slug) VALUES (?, ?, ?)', (region_code, region_name, region_slug))
             conn.commit()
@@ -72,7 +72,7 @@ def normaliseBase():
         # verifie si le departement existe
         c.execute('SELECT * FROM departments WHERE code = ?', (department_code,))
         department = c.fetchone()
-        department_id = department[0]
+        department_id = department[0] if department else 777
         if department == None:
             c.execute('INSERT INTO departments (code, name, slug, region_id) VALUES (?, ?, ?, ?)', (department_code, department_name, department_slug, region_id))
             conn.commit()
@@ -81,10 +81,9 @@ def normaliseBase():
         c.execute('INSERT INTO villes2 (insee_code, zip_code, name, slug, gps_lat, gps_lng, department_id) VALUES (?, ?, ?, ?, ?, ?, ?)', (codeInsee, zip_code, name, slug, gps_lat, gps_lng, department_id))
         # remplir la table villes_departments
         ville_id = c.lastrowid
-        c.execute('INSERT INTO villes_departments (ville_id, department_id) VALUES (?, ?)', (ville_id, department[0]))
-        ville2 = c.fetchone()
+        c.execute('INSERT INTO villes_departments (ville_id, department_id) VALUES (?, ?)', (ville_id, department_id))
         # remplir la table villes_regions
-        c.execute('INSERT INTO villes_regions (ville_id, region_id) VALUES (?, ?)', (ville_id, region[0]))
+        c.execute('INSERT INTO villes_regions (ville_id, region_id) VALUES (?, ?)', (ville_id, region_id))
         conn.commit()
         # remplir la table villes_regions
         c.execute('INSERT INTO villes_departments_regions (ville_id, department_id, region_id) VALUES (?, ?, ?)', (ville_id, department_id, region_id))
