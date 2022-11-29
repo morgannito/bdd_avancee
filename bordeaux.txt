@@ -1,0 +1,1 @@
+DELETE FROM villes WHERE insee_code = 1554544

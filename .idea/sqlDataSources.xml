@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="e1dfd233-5fed-4506-9e61-162ed40c79b4" name="tableopti Mapping">
+      <data-sources db="b4eb62c1-36ea-4521-be7b-2116e583cdde" ddl="70156a40-b7a9-41be-9297-cb0ab5ea1010" />
+      <scope>
+        <node kind="database" negative="1">
+          <node kind="schema" negative="1" />
+        </node>
+      </scope>
+    </mapping>
+    <mapping uuid="245b3175-ef9c-4d58-bf3d-eb58d41ff4dc" name="tableopti Mapping [2]">
+      <data-sources db="f48f7043-5785-437b-b1a9-2015fa650650" ddl="98e87bfd-17fc-4536-90a7-666569fb1d88" />
+    </mapping>
+  </component>
+</project>
