@@ -190,33 +190,55 @@ def replica_marseille():
 
 # main
 if __name__ == "__main__":
-    # ajoute une region
-    addRegion("1554544", "region1","region1")
-    updateRegion("1554544", "region1","region1")
-    deleteRegion("1554544")
-    addRegion("1554544", "region1", "region1")
-    updateRegion("1554544", "region1", "region1")
-    deleteRegion("1554544")
-    addRegion("1554544", "region1", "region1")
-    updateRegion("1554544", "region1", "region1")
-    deleteRegion("1554544")
-    replica_paris()
-
-    # ajoute un departement
-    addDepartement("1554544", "departement1", "departement1", "1554544")
-    updateDepartement("1554544", "departement1", "departement1", "1554544")
-    deleteDepartement("1554544")
-    addDepartement("1554544", "departement1", "departement1", "1554544")
-    updateDepartement("1554544", "departement1", "departement1", "1554544")
-    deleteDepartement("1554544")
-
-    # ajoute une ville
-    addCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
-    updateCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
-    deleteCity("1554544")
-    addCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
-    updateCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
-    deleteCity("1554544")
+    print("")
+    # # ajoute une region
+    # addRegion("1554544", "region1","region1")
+    # updateRegion("1554544", "region1","region1")
+    # deleteRegion("1554544")
+    # addRegion("1554544", "region1", "region1")
+    # updateRegion("1554544", "region1", "region1")
+    # deleteRegion("1554544")
+    # addRegion("1554544", "region1", "region1")
+    # updateRegion("1554544", "region1", "region1")
+    # deleteRegion("1554544")
+    # replica_paris()
+    #
+    # # ajoute un departement
+    # addDepartement("1554544", "departement1", "departement1", "1554544")
+    # updateDepartement("1554544", "departement1", "departement1", "1554544")
+    # deleteDepartement("1554544")
+    # addDepartement("1554544", "departement1", "departement1", "1554544")
+    # updateDepartement("1554544", "departement1", "departement1", "1554544")
+    # deleteDepartement("1554544")
+    #
+    # # ajoute une ville
+    # addCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
+    # updateCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
+    # deleteCity("1554544")
+    # addCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
+    # updateCity("1554544", "1554544", "ville1", "ville1", "1554544", "1554544", "1554544")
+    # deleteCity("1554544")
 
 # todo le faire en plus propre
 # todo faire un programme qui fait tout ca automatiquement desqu'il y a une modification sur le fichier paris.txt et marseille.txt et bordeaux.txt
+
+# fait un select sur les tables de la base de données bordeaux,paris,marseille
+def select(city):
+    conn_paris, conn_bordeaux, conn_marseille = connectBase()
+    cursor_bordeaux = conn_bordeaux.cursor()
+    cursor_paris = conn_paris.cursor()
+    cursor_marseille = conn_marseille.cursor()
+    cursor_bordeaux.execute("SELECT * FROM villes")
+    cursor_paris.execute("SELECT * FROM regions")
+    cursor_marseille.execute("SELECT * FROM departments")
+    # pour chaque villes de la base de données bordeaux va chercher les infos de la region et du departement correspondant
+    for row in cursor_bordeaux:
+        if row[4] == city:
+            for row2 in cursor_marseille:
+                if row2[0] == row[7]:
+                    for row3 in cursor_paris:
+                        if row3[0] == row2[4]:
+                            print(row[1], row[2], row[3], row[4], row[5], row[6], row[7], row2[1], row2[2], row2[3], row3[1], row3[2], row3[3])
+select("perpignan")
+
+
